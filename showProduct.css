@@ -1,0 +1,242 @@
+header{
+    background-color: #8e2833;
+}
+
+#product-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+h1{
+    font-size: 3em;
+    font-weight: bold;
+    color: #8e2833;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#detailsSpan{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #8e2833;
+    color: white;
+}
+
+#product-details #details h2{
+    font-size: 2em;
+    font-weight: bold;
+    color: #8e2833;
+
+}
+
+#product-details #details p{
+    font-size: 1.5em;
+    color: #8e2833;
+}
+
+#product-carousel {
+    margin-top: 0px;
+    max-width: 700px;
+    max-height: 900px; /* Puedes ajustar según sea necesario */
+    overflow: hidden; /* Para recortar cualquier imagen que sea más grande */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.carousel-inner {
+    width: 100%;
+    height: 100%;
+
+}
+
+.carousel-control-next{
+    color: black;
+    padding-left:50px;
+    font-size: 50px;
+}
+
+.carousel-control-next:hover{
+    color: black;
+    padding-left:50px;
+    font-size: 50px;
+}
+
+.carousel-control-prev{
+    color: black;
+    padding-left:50px;
+    font-size: 50px;
+}
+
+.carousel-control-prev:hover{
+    color: black;
+    padding-left:50px;
+    font-size: 50px;
+}
+
+
+.carousel-item img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+    max-width: 600px;
+  }
+  
+
+
+
+.btn{
+    background-color: #8e2833;
+    width: 300px;
+    height: 50px;
+}
+
+.btn:hover{
+    background-color: #8e2833;
+
+}
+
+select{
+    width: 100%;
+    border: #8e2833;
+}
+
+#volver{
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 50px;
+}
+
+#volver a{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 50px;
+    text-decoration: none;
+}
+
+#product-images{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 900px;
+
+}
+
+
+
+#details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+#volver img{
+    width: 50px;
+    height: 50px;
+
+}
+
+
+
+
+@media screen and (max-width: 576px) and (min-width:300px) {
+    #product-details{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    h1{
+        font-size: 3em;
+        font-weight: bold;
+        color: #8e2833;
+        text-align: center;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
+    #product-details #details h2{
+        font-size: 2em;
+        font-weight: bold;
+        color: #8e2833;
+        margin-top: 20px;
+        text-align: center;
+    
+    }
+    
+    #product-details #details p{
+        font-size: 1.5em;
+        margin-top: 10px;
+        color: #8e2833;
+        text-align: center;
+    }
+    
+    #product-carousel {
+        margin-top: 30px;
+        max-width: 700px;
+        max-height: 400px; /* Puedes ajustar según sea necesario */
+        overflow: hidden; /* Para recortar cualquier imagen que sea más grande */
+    }
+    
+    .carousel-inner {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ajusta el comportamiento de ajuste */
+        object-position: center; /* Centra la imagen en el contenedor */
+    }
+
+    button{
+        width: 100%;
+    }
+
+    select{
+        width: 100%;
+    }
+
+    #volver{
+        padding-top: 1px;
+    }
+
+    #volver img{
+        width: 50px;
+        height: 50px;
+
+    }
+    
+    #product-images{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        height: 450px;
+    }
+
+
+}

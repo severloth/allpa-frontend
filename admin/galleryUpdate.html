@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="auth.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+
+    <title>Crear Producto</title>
+</head>
+<body>
+
+<div id="arriba">
+    <div id="logo">
+        <a href="./admin.html"><h2>ALLPA</h2></a>
+    </div>
+
+</div>
+<header>
+    <nav>
+        <ul>
+            <li><a href="./admin.html">Inicio</a></li>
+            <li><a href="./products.html">Productos</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <form id="updateForm" enctype="multipart/form-data" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+
+
+        
+    </form>
+    
+    
+</main>
+
+<script>
+    //fill update form
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        console.log(id);
+
+        fetch(`https://allpa-server-production.up.railway.app/gallery`)
+            .then(response => response.json())
+            .then(data => populateForm(data, id));
+    });
+
+    function populateForm(data, id) {
+        const updateForm = document.getElementById('updateForm');
+
+        const media = data.find(media => media._id == id);
+
+        updateForm.innerHTML = `
+            <image src="${media.image}" alt="media" style="width:20%;">
+            <label for="image">Seleccione un archivo de media:</label>
+            <input type="file" name="image" accept="image/*">
+            
+            <label for="description">Descripción:</label>
+            <textarea name="description">${media.description}</textarea>
+            
+            <button type="button" onclick="updateMedia('${media._id}')">Actualizar</button>
+        `;
+    }
+
+    async function updateMedia(id) {
+    const $imageForm = document.querySelector('input[type="file"]');
+    const $image = $imageForm.files[0];
+    const $description = document.querySelector('textarea[name="description"]').value;
+
+    const formData = new FormData();
+    formData.append('image', $image);
+    formData.append('description', $description);
+
+    const url = `https://allpa-server-production.up.railway.app/gallery/update/${id}`;
+
+    axios
+        .patch(url, formData)
+        .then(response => {
+            console.log(response);
+            alert('Imagen de la galería actualizada exitosamente');
+            window.location.href = './gallery.html';
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error al actualizar la imagen de la galería');
+        });
+}
+
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</body>
+
+</html>

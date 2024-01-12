@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="showProduct.css">
+    <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+    <title>Product</title>
+</head>
+<body>
+    <header>
+        <div id="logo" data-aos="fade-in" data-aos-duration="1500">
+            <h1>ALLPA</h1>
+        </div>
+
+        <div id="menu" onclick="openMenu()">
+            <div id="menu-bar" data-aos="fade-in" data-aos-duration="1500">
+                <img src="images/menu-icon-white.png" alt="">
+            </div>
+        </div>
+
+        <div id="nav" data-aos="fade-in" data-aos-duration="1500">
+            <ul>
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="./productsEnglish.html" class="bandera-link"><img src="images/estados-unidos.png" alt=""></a></li>
+            </ul>
+        </div>
+</header>
+<div id="volver">
+    <a href="./products.html">Volver a productos:</a>
+</div>
+<div id="volver">
+    <a href="./products.html"><img src="images/flecha-curva.png" alt=""></a>
+</div>
+    <h1>Detalles del Producto</h1>
+ 
+    <div id="product-details">
+        <!-- Aquí se mostrarán los detalles del producto -->
+    </div>
+
+    <script>
+
+        $(document).ready(function() {
+            // Obtener el ID del producto desde la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+        
+             fetch(`https://allpa-server-production.up.railway.app/product/${productId}`)
+                 .then(response => response.json())
+                 .then(product => {
+                     // Actualizar el contenido de #product-details con la información del producto
+                     console.log(product);
+                     const productDetails = document.getElementById("product-details");
+                     productDetails.innerHTML = `
+                    
+            <div id="product-images">
+            <div id="product-carousel" class="carousel">
+                <div class="carousel-inner">
+                    
+                    ${product.images.map((image, index) => `
+                        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                            <img src="${getImageUrl(image)}" alt="${product.name}">
+                        </div>
+                    `).join('')}
+                </div>
+                <a class="carousel-control-prev" onclick="prevSlide()" role="button">&#10094;</a>
+                <a class="carousel-control-next" onclick="nextSlide()" role="button">&#10095;</a>
+            </div>
+        </div>
+        <div id="details">
+            <h2>${product.name}</h2>
+            <p>${product.description}</p>
+            <p>Categoría: ${product.category}</p>
+            <p>Teñido: ${product.color}</p>
+            <p>MULTIPLES MEDIDAS</p>
+            <p>Precio desde: ${product.price}</p>
+            <button type="button" class="btn btn-success" onclick="redirigirAWhatsapp('${product.name}')">Realizar consulta</button>
+            </div>
+          
+        `;
+
+// Inicializar el carrusel después de agregar todos los elementos
+$("#product-carousel").carousel();
+                 })
+                 .catch(error => {
+                     console.error('Error al obtener detalles del producto:', error);
+                 });
+        });
+        
+        let slideIndex = 1;
+
+    function getImageUrl(image) {
+        if (image.public_id) {
+            return `https://res.cloudinary.com/dzqv1pdjv/image/upload/${image.public_id}`;
+        } else {
+            return `https://allpa-server-production.up.railway.app/${image.path}`;
+        }
+    }
+
+function showSlide(index) {
+    const slides = document.querySelectorAll('.carousel-item');
+    if (index > slides.length) {
+        slideIndex = 1;
+    }
+    if (index < 1) {
+        slideIndex = slides.length;
+    }
+    slides.forEach((slide) => slide.style.display = 'none');
+    slides[slideIndex - 1].style.display = 'block';
+}
+
+function nextSlide() {
+    showSlide(slideIndex += 1);
+}
+
+function prevSlide() {
+    showSlide(slideIndex -= 1);
+}
+
+function redirigirAWhatsapp(productoNombre) {
+      // Reemplaza el número de teléfono con el número de WhatsApp de tu compañía
+      const numeroWhatsApp = "+5491136354785";
+      const mensaje = `¡Hola! Quiero comprar ${productoNombre}. ¿Puedes ayudarme?`;
+
+      // Construye el enlace de WhatsApp
+      const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+      // Redirige a WhatsApp
+      window.location.href = enlaceWhatsApp;
+    }
+
+        
+        
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
+

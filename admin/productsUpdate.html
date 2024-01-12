@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="productsAdmin.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+    <title>Actualizar Producto</title>
+    <style>
+           #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #loading-indicator {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay">
+        <div id="loading-indicator"></div>
+    </div>
+
+<div id="arriba">
+    <div id="logo">
+        <a href="./admin.html"><h2>ALLPA</h2></a>
+    </div>
+
+</div>
+<header>
+    <nav>
+        <ul>
+            <li><a href="./admin.html">Inicio</a></li>
+            <li><a href="./products.html">Productos</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    
+    <div id="updateimages">
+        <form id="updateImageForm0" enctype = "multipart/form-data" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+           
+        </form>
+    
+        <form id="updateImageForm1" enctype = "multipart/form-data" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+           
+        </form>
+    
+        <form id="updateImageForm2" enctype = "multipart/form-data" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+           
+        </form>
+    </div>
+    <form id="updateProductForm" enctype="multipart/form-data" style="display:flex;flex-direction: column;justify-content: center;align-items: center;">
+
+
+        
+    </form>
+
+    
+    
+</main>
+
+<script>
+    //fill update form
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        console.log(id);
+    
+        //bring the product data using the id
+
+        fetch(`https://allpa-server-production.up.railway.app`)
+            .then(response => response.json())
+            .then(data => populateForm(data, id));
+        
+    
+    });
+
+    function populateForm(data, id) {
+        const updateProductForm = document.getElementById('updateProductForm');
+        const updateImageForm0 = document.getElementById('updateImageForm0');
+        const updateImageForm1 = document.getElementById('updateImageForm1');
+        const updateImageForm2 = document.getElementById('updateImageForm2');
+
+
+        const product = data.find(product => product._id == id);
+        
+      
+        //if exists image 0 in array, show image 0 form
+
+        if(product.images[0]?.public_id){
+
+            updateImageForm0.innerHTML = `
+            <img src="https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[0].public_id}" alt="media" style="width:20%;">
+            <label for="imageUnit">Seleccione un archivo de media:</label>
+            <input type="file" name="imageUnit" id="imageUnit0" accept="image/*">
+    
+            <button type="button" onclick="updateimg('${product.images[0]._id}')">Actualizar</button>
+        `;
+
+        } 
+        else if(product.images[0]?.path){
+            updateImageForm0.innerHTML = `
+            <img src="https://allpa-server-production.up.railway.app/${product.images[0].path}" alt="media" style="width:20%;">
+            <label for="imageUnit">Seleccione un archivo de media:</label>
+            <input type="file" name="imageUnit" id="imageUnit0" accept="image/*">
+    
+            <button type="button" onclick="updateimg('${product.images[0]._id}')">Actualizar</button>
+        `;
+        
+        }
+        else{
+            updateImageForm0.innerHTML = `
+            <label for="images">Seleccione un archivo de media:</label>
+            <input type="file" name="images" accept="image/*">
+    
+            <button type="button" onclick="createImg()">Agregar</button>
+        `;
+        }
+
+        if(product.images[1]?.public_id){
+
+updateImageForm1.innerHTML = `
+<img src="https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[1].public_id}" alt="media" style="width:20%;">
+<label for="imageUnit">Seleccione un archivo de media:</label>
+<input type="file" name="imageUnit" id="imageUnit1" accept="image/*">
+
+<button type="button" onclick="updateimg('${product.images[1]._id}')">Actualizar</button>
+`;
+
+} 
+else if(product.images[1]?.path){
+updateImageForm1.innerHTML = `
+<img src="https://allpa-server-production.up.railway.app/${product.images[1].path}" alt="media" style="width:20%;">
+<label for="imageUnit">Seleccione un archivo de media:</label>
+<input type="file" name="imageUnit" id="imageUnit1" accept="image/*">
+
+<button type="button" onclick="updateimg('${product.images[1]._id}')">Actualizar</button>
+`;
+}
+else{
+updateImageForm1.innerHTML = `
+<label for="images">Seleccione un archivo de media:</label>
+<input type="file" name="images" accept="image/*">
+
+<button type="button" onclick="createImg()">Agregar</button>
+`;
+}
+
+if(product.images[2]?.public_id){
+
+updateImageForm2.innerHTML = `
+<img src="https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[2].public_id}" alt="media" style="width:20%;">
+<label for="imageUnit">Seleccione un archivo de media:</label>
+<input type="file" name="imageUnit" id="imageUnit2" accept="image/*">
+
+<button type="button" onclick="updateimg('${product.images[2]._id}')">Actualizar</button>
+`;
+
+} 
+else if(product.images[2]?.path){
+updateImageForm2.innerHTML = `
+<img src="https://allpa-server-production.up.railway.app/${product.images[2].path}" alt="media" style="width:20%;">
+<label for="imageUnit">Seleccione un archivo de media:</label>
+<input type="file" name="imageUnit" id="imageUnit2" accept="image/*">
+
+<button type="button" onclick="updateimg('${product.images[2]._id}')">Actualizar</button>
+`;
+}
+else{
+updateImageForm2.innerHTML = `
+<label for="images">Seleccione un archivo de media:</label>
+<input type="file" name="images" accept="image/*">
+
+<button type="button" onclick="createImg()">Agregar</button>
+`;
+}
+    
+     
+        updateProductForm.innerHTML = `
+        
+           
+            <label for="name">Nombre del producto:</label>
+            <input type="text" id="name" name="name" value="${product.name}">
+
+            <label for="description">Descripción:</label>
+            <textarea name="description">${product.description}</textarea>
+
+            <label for="price">Precio desde:</label>
+            <input type="number" id="price" name="price" value="${product.price}">
+
+            <label for="category">Categoría:</label>
+<select id="category" name="category">
+  <option value="Alfombras" ${product.category === 'Alfombras' ? 'selected' : ''}>Alfombras</option>
+  <option value="Fundas de Almohadas" ${product.category === 'Fundas de Almohadas' ? 'selected' : ''}>Fundas de Almohadas</option>
+  <option value="Ponchos" ${product.category === 'Ponchos' ? 'selected' : ''}>Ponchos</option>
+  <option value="Caminos" ${product.category === 'Caminos' ? 'selected' : ''}>Caminos</option>
+  <option value="Pies de Camas" ${product.category === 'Pies de Camas' ? 'selected' : ''}>Pies de Camas</option>
+</select>
+
+            <label for="color">Teñido:</label>
+            <input type="text" id="color" name="color" value="${product.color}">
+
+            <label for="nameEnglish">Nombre del producto (inglés):</label>
+            <input type="text" id="nameEnglish" name="nameEnglish" value="${product.nameEnglish}">
+
+            <label for="descriptionEnglish">Descripción (inglés):</label>
+            <textarea name="descriptionEnglish">${product.descriptionEnglish}</textarea>
+
+            <label for="categoryEnglish">Category (English):</label>
+<select id="categoryEnglish" name="categoryEnglish">
+  <option value="Rugs" ${product.categoryEnglish === 'Rugs' ? 'selected' : ''}>Rugs</option>
+  <option value="Pillow Covers" ${product.categoryEnglish === 'Pillow Covers' ? 'selected' : ''}>Pillow Covers</option>
+  <option value="Poncho" ${product.categoryEnglish === 'Poncho' ? 'selected' : ''}>Poncho</option>
+  <option value="Runners" ${product.categoryEnglish === 'Runners' ? 'selected' : ''}>Runners</option>
+  <option value="Throw" ${product.categoryEnglish === 'Throw' ? 'selected' : ''}>Throw</option>
+</select>
+
+            <label for="colorEnglish">Teñido (inglés):</label>
+            <input type="text" id="colorEnglish" name="colorEnglish" value="${product.colorEnglish}">
+        
+            
+            <button type="button" onclick="updateProduct('${product._id}')">Actualizar</button>
+        `;
+    }
+
+    async function updateProduct(id) {
+
+    const $description = document.querySelector('textarea[name="description"]').value;
+    const $name = document.getElementById('name').value;
+    const $category = document.getElementById('category').value;
+    const $price = document.getElementById('price').value;
+    const $color = document.getElementById('color').value;
+    const $colorEnglish = document.getElementById('colorEnglish').value;
+    const $categoryEnglish = document.getElementById('categoryEnglish').value;
+    const $descriptionEnglish = document.querySelector('textarea[name="descriptionEnglish"]').value;
+    const $nameEnglish = document.getElementById('nameEnglish').value;
+
+    const formData = new FormData();
+
+    formData.append('description', $description);
+    formData.append('name', $name);
+    formData.append('category', $category);
+    formData.append('price', $price);
+    formData.append('color', $color);
+    formData.append('colorEnglish', $colorEnglish);
+    formData.append('categoryEnglish', $categoryEnglish);
+    formData.append('descriptionEnglish', $descriptionEnglish);
+    formData.append('nameEnglish', $nameEnglish);
+    
+
+
+
+    const url = `https://allpa-server-production.up.railway.app/update/${id}`;
+    showLoadingIndicator();
+    axios
+        .patch(url, formData)
+        .then(response => {
+           
+            console.log(response);
+            alert('Producto actualizado correctamente');
+            hideLoadingIndicator();
+            window.location.href = './products.html';
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Error al actualizar el producto');
+            hideLoadingIndicator();
+        });
+}
+
+function updateimg(imgId, index) {
+    showLoadingIndicator();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+   
+    
+    const url = `https://allpa-server-production.up.railway.app/updateimg/${id}/${imgId}`;
+    
+    if(imgId){
+
+        const imageInput0 = document.getElementById('imageUnit0');
+        const imageInput1 = document.getElementById('imageUnit1') || null;
+        const imageInput2 = document.getElementById('imageUnit2') || null;
+
+
+        const formData = new FormData();
+
+        if(imageInput0?.files[0]){
+            formData.append('imageUnit', imageInput0.files[0]);
+        }
+        if(imageInput1?.files[0]){
+            formData.append('imageUnit', imageInput1.files[0]);
+        }
+        if(imageInput2?.files[0]){
+            formData.append('imageUnit', imageInput2.files[0]);
+        }
+
+        
+        
+        axios
+        .patch(url, formData)
+        .then(response => {
+            console.log(response);
+            hideLoadingIndicator();
+            alert('Imagen actualizada correctamente');
+         
+            location.reload();
+            
+                       
+           formData = new FormData();
+        })
+        .catch(error => {
+            hideLoadingIndicator();
+
+            console.error(error);
+            
+        });
+ 
+    
+    }
+}
+
+    function createImg() {
+
+        showLoadingIndicator();
+
+       
+         const urlParams = new URLSearchParams(window.location.search);
+
+         const id = urlParams.get('id');
+
+         const url = `https://allpa-server-production.up.railway.app/createImg/${id}`;
+
+
+         //use the image input to get the image
+         const imageInput = document.querySelector('input[name="images"]');
+         const formData = new FormData();
+         formData.append('imageUnit', imageInput.files[0]);
+
+         axios
+         .post(url, formData)
+         .then(response => {
+             console.log(response);
+             hideLoadingIndicator();
+
+             alert('Imagen creada correctamente');
+             window.location.href = './products.html';
+         })
+         .catch(error => {
+             console.error(error);
+             hideLoadingIndicator();
+
+             alert('Error al crear la imagen');
+         });
+
+
+    }
+    function showLoadingIndicator() {
+
+            document.getElementById('loading-overlay').style.display = 'flex';
+           
+        }
+
+        function hideLoadingIndicator() {
+            document.getElementById('loading-overlay').style.display = 'none';
+
+        }
+ 
+    
+
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</body>
+
+</html>

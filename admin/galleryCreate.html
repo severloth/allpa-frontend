@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+
+    <link rel="stylesheet" href="auth.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="arriba">
+        <div id="logo">
+            <a href="./admin.html"><h2>ALLPA</h2></a>
+        </div>
+    </div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./admin.html">Inicio</a></li>
+                <li><a href="./products.html">Productos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main> 
+        <form id="mediaForm" enctype="multipart/form-data" style="margin-top:100px;">
+            <label for="image">Seleccione un archivo de media:</label>
+            <input type="file" name="image" accept="image/*">
+            
+            <label for="description">Descripción:</label>
+            <textarea name="description"></textarea>
+            
+            <button type="button" onclick="uploadMedia()">Subir</button>
+        </form>
+    </main>
+
+    <script>
+        async function uploadMedia() {
+    const form = document.getElementById('mediaForm');
+    const formData = new FormData(form);
+
+    //USE FETCH TO POST THE IMAGE
+    const response = await fetch('https://allpa-server-production.up.railway.app/gallery/create', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if(data.ok) {
+        alert('Imagen subida exitosamente');
+        window.location.href = "./gallery.html";
+    } else {
+        alert('Error al subir la imagen');
+    }
+}
+
+   
+    </script>
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>

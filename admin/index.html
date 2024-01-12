@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión - Administrador</title>
+  <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      text-align: center;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Ingresar como Administrador</h2>
+  <label for="password">Contraseña:</label>
+  <input type="password" id="password" placeholder="Ingrese la contraseña">
+  <br>
+  <button onclick="login()">Ingresar</button>
+</div>
+
+<script>
+  // Contraseña de ejemplo (reemplazar con tu contraseña real)
+  const contraseñaCorrecta = "allpateam2023";
+
+  function login() {
+    const inputContraseña = document.getElementById("password").value;
+    
+    if (inputContraseña === contraseñaCorrecta) {
+      // Redirigir a la página de administrador
+      window.location.href = "./admin.html";
+    } else {
+      alert("Contraseña incorrecta. Por favor, intenta de nuevo.");
+    }
+  }
+</script>
+
+</body>
+</html>

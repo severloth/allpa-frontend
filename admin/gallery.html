@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+    <title>Galería</title>
+</head>
+<body>
+
+<div id="arriba">
+
+    <div id="logo">
+        <a href="./admin.html"><h2>ALLPA</h2></a>
+    </div>
+
+</div>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="./admin.html">Inicio</a></li>
+            <li><a href="./products.html">Productos</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Listar los usuarios existentes -->
+<main>
+    <h1>Galería</h1>
+    <p>Administra la galería de fotos</p>
+    <a href="./galleryCreate.html">Subir contenido</a>
+
+    <table id="galleryTable" class="center">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('https://allpa-server-production.up.railway.app/gallery')
+            .then(response => response.json())
+            .then(data => populateGallery(data));
+    });
+
+    function populateGallery(data) {
+        const galleryTable = document.getElementById('galleryTable').getElementsByTagName('tbody')[0];
+        //generate Id, every time that a image is created, plus 1 to the last id
+        const generateId = () => Math.floor(Math.random() * 1) + 1;
+
+        data.forEach(media => {
+            const row = galleryTable.insertRow();
+            row.insertCell(0).textContent = media._id[length - 1];
+            row.insertCell(1).innerHTML = `<img src="${media.image}" alt="${media.description}" width="100">`;
+            row.insertCell(2).textContent = media.description;
+            const actionsCell = row.insertCell(3);
+            actionsCell.innerHTML = `
+                <button onclick="updateImage('${media._id}')">Editar</button>
+                <button onclick="deleteImage('${media._id}')">Eliminar</button>
+            `;
+        });
+    }
+
+    async function deleteImage(id) {
+    const confirmed = confirm('¿Está seguro de eliminar esta imagen?');
+    
+    if (confirmed) {
+        const response = await fetch(`https://allpa-server-production.up.railway.app/gallery/delete/${id}`, {
+            method: 'DELETE'
+        });
+
+        const data = await response.json();
+
+        if (data.ok) {
+            alert('Imagen eliminada exitosamente');
+            window.location.reload();
+        } else {
+            alert('Error al eliminar la imagen');
+        }
+    }
+}
+
+    function updateImage(id) {
+        window.location.href = `./galleryUpdate.html?id=${id}`;
+    }
+</script>
+
+</body>
+</html>

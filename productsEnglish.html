@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+
+
+
+  <link rel="stylesheet" href="products.css">
+
+  <title>Productos</title>
+
+  <style>
+    /* Estilos básicos, puedes personalizar según tus necesidades */
+
+  </style>
+</head>
+<body>
+    <header>
+        <a href="./index.html" style="text-decoration: none;">
+        <div id="logo" data-aos="fade-in" data-aos-duration="1500">
+            <h1>ALLPA</h1>
+        </div>
+        </a>
+
+        <div id="menu" onclick="openMenu()">
+            <div id="menu-bar" data-aos="fade-in" data-aos-duration="1500">
+                <img src="images/menu-icon-white.png" alt="">
+            </div>
+        </div>
+
+        <div id="nav" data-aos="fade-in" data-aos-duration="1500">
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./products.html" class="bandera-link"><img src="images/argentina.png" alt=""></a></li>
+            </ul>
+        </div>
+</header>
+
+<div id="categoryButtons">
+  <button onclick="filterProductsByCategory('Rugs')">Rugs</button>
+  <button onclick="filterProductsByCategory('Pillow Covers')">Pillow Covers</button>
+  <button onclick="filterProductsByCategory('Poncho')">Poncho</button>
+  <button onclick="filterProductsByCategory('Runners')">Runners</button>
+  <button onclick="filterProductsByCategory('Throw')">Throw</button>
+  <button onclick="resetProductFilter()" id="showAllButton">Show all products</button>
+</div>
+<div id="categoryDropdown">
+  <select id="categorySelect" onchange="filterProductsByCategory(this.value)">
+      <option value="reset">Show All Products</option>
+      <option value="Rugs">Rugs</option>
+      <option value="Pillow Covers">Pillow Covers</option>
+      <option value="Poncho">Poncho</option>
+      <option value="Runners">Runners</option>
+      <option value="Throw">Throw</option>
+  </select>
+</div>
+  <div class="container" id="product-container" style="margin-top: 100px;">
+    <!-- Aquí se cargarán dinámicamente los productos -->
+  </div>
+
+  <script>
+    // Función para cargar productos desde el servidor
+    function cargarProductosDesdeServidor() {
+            fetch('https://allpa-server-production.up.railway.app/')
+                .then(response => response.json())
+                .then(data => {
+                    allProducts = data;
+                    displayProducts(allProducts);
+                })
+                .catch(error => {
+                    console.error('Error al cargar productos:', error);
+                });
+        }
+
+        function displayProducts(products) {
+            const container = document.getElementById("product-container");
+            container.innerHTML = ""; // Limpiar el contenido antes de agregar nuevos productos
+
+            products.forEach(product => {
+              const card = document.createElement("div");
+        card.classList.add("card");
+
+        const cardImage = document.createElement("div");
+        cardImage.classList.add("card-image");
+
+        const mainImage = document.createElement("img");
+      
+        function url(product) {
+          if (product.images[0]?.public_id) {
+            const imageUrl = `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[0].public_id}`
+            return imageUrl
+          }
+          else if(product.images[0]?.path) {
+            const imageUrl = `https://allpa-server-production.up.railway.app/${product.images[0].path}`
+            return imageUrl
+          }
+        }
+        const imageUrl = url(product)
+        mainImage.src = imageUrl;
+
+        mainImage.alt = product.name;
+        mainImage.classList.add("d-block", "w-100");
+
+
+        cardImage.appendChild(mainImage);
+
+        const hoverImage = document.createElement("img");
+        if (product.images[1] && typeof product.images[1] === 'object' && product.images[1].public_id) {
+        const hoverImageUrl = `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[1].public_id}`;
+        hoverImage.src = hoverImageUrl;
+        hoverImage.alt = product.name;
+        hoverImage.classList.add("d-block", "w-100");
+        }
+  
+        cardImage.appendChild(hoverImage);
+        hoverImage.classList.add("hidden");
+        
+        cardImage.addEventListener("mouseover", () => {
+          hoverImage.classList.remove("hidden");
+          mainImage.classList.add("hidden");
+          
+        });
+
+        cardImage.addEventListener("mouseout", () => {
+          hoverImage.classList.add("hidden");
+          mainImage.classList.remove("hidden");
+
+        });
+    
+
+        const cardInfo = document.createElement("div");
+        cardInfo.classList.add("card-info");
+
+        const nombre = document.createElement("h3");
+        nombre.textContent = product.nameEnglish;
+
+        const precio = document.createElement("p");
+        precio.textContent = `Price from: ${product.price}`;
+
+        const categoria = document.createElement("p");
+        categoria.textContent = `Category: ${product.categoryEnglish}`;
+
+        const comprarButton = document.createElement("button");
+        comprarButton.classList.add("buy-button");
+        comprarButton.textContent = "Details";
+        comprarButton.addEventListener("click", () => comprar(product._id));
+
+        cardInfo.appendChild(nombre);
+        cardInfo.appendChild(precio);
+        cardInfo.appendChild(categoria);
+        cardInfo.appendChild(comprarButton);
+
+        card.appendChild(cardImage);
+        card.appendChild(cardInfo);
+
+        container.appendChild(card);
+      });
+
+    }
+
+    // Función para redirigir a WhatsApp
+    function redirigirAWhatsapp(productoNombre) {
+      // Reemplaza el número de teléfono con el número de WhatsApp de tu compañía
+      const numeroWhatsApp = "+5491164346553";
+      const mensaje = `Hello! I want to buy ${productoNombre}. Can you help me?`;
+
+      // Construye el enlace de WhatsApp
+      const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+      // Redirige a WhatsApp
+      window.location.href = enlaceWhatsApp;
+    }
+
+    function filterProductsByCategory(category) {
+      if (category === "reset") {
+        resetProductFilter();
+    } else {
+        const filteredProducts = allProducts.filter(product => product.categoryEnglish === category);
+        displayProducts(filteredProducts);
+    }
+        }
+
+        function resetProductFilter() {
+            displayProducts(allProducts);
+        }
+
+    // Función para redirigir a WhatsApp
+    function redirigirAWhatsapp(productoNombre) {
+      // Reemplaza el número de teléfono con el número de WhatsApp de tu compañía
+      const numeroWhatsApp = "+5491164346553";
+      const mensaje = `Hey, I'm interested in ${productoNombre}. Can you help me?`;
+
+      // Construye el enlace de WhatsApp
+      const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+      // Redirige a WhatsApp
+      window.location.href = enlaceWhatsApp;
+    }
+
+    function openMenu(){
+            if(document.getElementById('nav').style.display == 'flex')
+                document.getElementById('nav').style.display = 'none';
+                
+            else{
+                document.getElementById('nav').style.display = 'flex';
+            }
+
+        }
+
+      function comprar(id){
+    // Redirigir a la página showProduct.html con el ID del producto como parámetro
+      window.location.href = `showProductEnglish.html?id=${id}`;
+      }
+
+      
+
+    // Cargar productos cuando la página se carga
+    window.onload = cargarProductosDesdeServidor;
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

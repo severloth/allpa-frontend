@@ -1,0 +1,141 @@
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: #8e2833
+
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .card {
+    width: 300px; /* ajusta el ancho según sea necesario */
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-image {
+    position: relative;
+    height: 60%;
+    
+    
+  }
+  
+  .card-image img {
+    width: 100%;
+    height: 20px;
+    display: block;
+  }
+
+
+  .card-image img.hidden {
+    display: none !important;
+  }
+  
+  .card-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 50%;
+  }
+  
+  .card h3,
+  .card p {
+    margin: 0;
+    text-align: center;
+  }
+  
+  .buy-button {
+    background-color: #8e2833;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Ajusta la duración y el efecto según tus preferencias */
+    object-fit: cover;
+  }
+  
+  .card-image img.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #categoryButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0px;
+    margin-top: 150px;
+
+  }
+
+  #categoryButtons button{
+    margin: 10px;
+    background-color: #8e2833;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #categoryButtons #showAllButton{
+    background-color: rgba(62, 150, 205, 0.708);
+    color: #ffffff;
+  }
+
+  #categoryDropdown{
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    #categoryButtons {
+      display: none;
+    }
+  
+    #categoryDropdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 200px;
+    }
+  
+    #categoryDropdown select {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #8e2833;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      width: 80%;
+    }
+  }

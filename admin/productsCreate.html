@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="icon" href="images/logoAllpa.png" type="image/png" sizes="16x16">
+
+
+    <link rel="stylesheet" href="auth.css">
+    <title>Crear Producto</title>
+    <style>
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #loading-indicator {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #okstatus-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #okstatus-indicator {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+
+        
+    </style>
+</head>
+<body>
+    <div id="loading-overlay">
+        <div id="loading-indicator"></div>
+    </div>
+ 
+
+<div id="arriba">
+    <div id="logo">
+        <a href="./admin.html"><h2>ALLPA</h2></a>
+    </div>
+
+</div>
+<header>
+    <nav>
+        <ul>
+            <li><a href="./admin.html">Inicio</a></li>
+            <li><a href="./products.html">Productos</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main>
+        <form id="productForm" style="margin-top: 100px;" enctype="multipart/form-data">
+            <label for="name">Nombre del producto:</label>
+            <input type="text" id="name" name="name">
+
+            <label for="description">Descripción del producto</label>
+            <textarea id="description" name="description"></textarea>
+
+            <label for="price">Precio desde:</label>
+            <input type="number" id="price" name="price">
+
+            <label for="image1">Imagen 1</label>
+            <input type="file" id="image1" name="image1" accept="image/*">
+
+            <label for="image2">Imagen 2</label>
+            <input type="file" id="image2" name="image2" accept="image/*">
+
+            <label for="image3">Imagen 3</label>
+            <input type="file" id="image3" name="image3" accept="image/*">
+
+            <label for="category">Categoria:</label>
+<select id="category" name="category">
+  <option value="Alfombras">Alfombras</option>
+  <option value="Fundas de Almohadas">Fundas de Almohadas</option>
+  <option value="Ponchos">Ponchos</option>
+  <option value="Caminos">Caminos</option>
+  <option value="Pies de Camas">Pies de Camas</option>
+</select>
+
+            <label for="color">Teñido:</label>
+            <input type="text" id="color" name="color">
+
+            <label for="nameEnglish">Nombre del producto (inglés):</label>
+            <input type="text" id="nameEnglish" name="nameEnglish">
+
+            <label for="descriptionEnglish">Descripción del producto (inglés)</label>
+            <textarea id="descriptionEnglish" name="descriptionEnglish"></textarea>
+
+            <label for="categoryEnglish">Category (English):</label>
+            <select id="categoryEnglish" name="categoryEnglish">
+              <option value="Rugs">Rugs</option>
+              <option value="Pillow Covers">Pillow Covers</option>
+              <option value="Poncho">Poncho</option>
+              <option value="Runners">Runners</option>
+              <option value="Throw">Throw</option>
+            </select>
+
+            <label for="colorEnglish">Teñido (inglés):</label>
+            <input type="text" id="colorEnglish" name="colorEnglish">
+
+            <button type="button" onclick="submitProduct()">Subir producto</button>
+        </form>
+    </main>
+    <script>
+        const MAX_IMAGES = 3;
+        let selectedImages = [];
+
+        function updateSelectedImagesList() {
+            selectedImages = [];
+
+            for (let i = 1; i <= MAX_IMAGES; i++) {
+                const imageInput = document.getElementById(`image${i}`);
+                
+                if (imageInput.files.length > 0) {
+                    selectedImages.push(imageInput.files[0]);
+                }
+            }
+        }
+
+        async function submitProduct() {
+            console.time('varialbes');
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const price = document.getElementById('price').value;
+            const category = document.getElementById('category').value;
+            const color = document.getElementById('color').value;
+            const nameEnglish = document.getElementById('nameEnglish').value;
+            const descriptionEnglish = document.getElementById('descriptionEnglish').value;
+            const categoryEnglish = document.getElementById('categoryEnglish').value;
+            const colorEnglish = document.getElementById('colorEnglish').value;
+            console.timeEnd('varialbes');
+
+
+            console.time('creacion del formdata');
+            const imageFormData = new FormData();
+            console.timeEnd('creacion del formdata');
+
+            console.time('agregar imagenes al formdata');
+            for (let i = 0; i < selectedImages.length; i++) {
+                imageFormData.append(`images[${i}]`, selectedImages[i]);
+            }
+
+            console.timeEnd('agregar imagenes al formdata');
+
+
+            console.time('agregar datos al formdata');
+            imageFormData.append('name', name);
+            imageFormData.append('description', description);
+            imageFormData.append('price', price);
+            imageFormData.append('category', category);
+            imageFormData.append('color', color);
+            imageFormData.append('nameEnglish', nameEnglish);
+            imageFormData.append('descriptionEnglish', descriptionEnglish);
+            imageFormData.append('categoryEnglish', categoryEnglish);
+            imageFormData.append('colorEnglish', colorEnglish);
+            console.timeEnd('agregar datos al formdata');
+
+            try {
+                showLoadingIndicator();               
+    
+                console.time('enviar datos');
+                const response = await axios.post('https://allpa-server-production.up.railway.app/create', imageFormData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                
+                });
+             
+
+                const data = response.data;
+                console.timeEnd('enviar datos');
+
+                if (data.ok) {
+                    
+                    alert('Producto subido correctamente');
+                    hideLoadingIndicator();
+
+                    window.location.href = './products.html';
+                    
+                } else {
+                    alert('Error al subir el producto');
+                    hideLoadingIndicator();
+
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al subir el producto');
+            }
+        }
+
+        // Agregar un event listener para detectar cambios en los campos de imágenes
+        for (let i = 1; i <= MAX_IMAGES; i++) {
+            document.getElementById(`image${i}`).addEventListener('change', updateSelectedImagesList);
+        }
+
+        function showLoadingIndicator() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+
+        function hideLoadingIndicator() {
+            document.getElementById('loading-overlay').style.display = 'none';
+
+        }
+
+        function submitted(){
+            document.getElementById('loading-overlay').style.display = 'none';
+
+        }
+    </script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</body>
+</html>
