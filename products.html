@@ -20,7 +20,7 @@
   <title>Productos</title>
 
   <style>
-    /* Estilos básicos, puedes personalizar según tus necesidades */
+   
   </style>
 </head>
 
@@ -102,46 +102,43 @@
         /* const imageUrl = `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[0].public_id}` || `/upload/${product.images[0].public_id}`; */
 
         function url(product) {
-          if (product.images[0]?.public_id) {
-            const imageUrl = `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[0].public_id}`
-            return imageUrl
-          }
-          else if(product.images[0]?.path) {
-            const imageUrl = `https://allpa-server-production.up.railway.app/${product.images[0].path}`
-            return imageUrl
-          }
-        }
-        const imageUrl = url(product)
-        mainImage.src = imageUrl;
+  if (product.images[0]?.public_id) {
+    return `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[0].public_id}`;
+  } else if (product.images[0]?.path) {
+    return `https://allpa-server-production.up.railway.app/${product.images[0].path}`;
+  }
+}
 
-        mainImage.alt = product.name;
-        mainImage.classList.add("d-block", "w-100");
+const imageUrl = url(product);
+mainImage.src = imageUrl;
+mainImage.alt = product.name;
+mainImage.classList.add("d-block", "w-100");
+cardImage.appendChild(mainImage);
+
+if (product.images[1] && typeof product.images[1] === 'object' && (product.images[1].public_id || product.images[1].path)) {
+  const hoverImage = document.createElement("img");
+  const hoverImageUrl = product.images[1].public_id
+    ? `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[1].public_id}`
+    : `https://allpa-server-production.up.railway.app/${product.images[1].path}`;
+
+  hoverImage.src = hoverImageUrl;
+  hoverImage.alt = product.name;
+  hoverImage.classList.add("d-block", "w-100", "hidden");
+
+  cardImage.appendChild(hoverImage);
+  hoverImage.style.transition = "opacity 0.3s ease-in-out";
 
 
-        cardImage.appendChild(mainImage);
+  cardImage.addEventListener("mouseover", () => {
+    hoverImage.classList.remove("hidden");
+    mainImage.classList.add("hidden");
+  });
 
-        const hoverImage = document.createElement("img");
-        if (product.images[1] && typeof product.images[1] === 'object' && (product.images[1].public_id || product.images[1].path)) {
-          const hoverImageUrl = product.images[1].public_id ? `https://res.cloudinary.com/dzqv1pdjv/image/upload/${product.images[1].public_id}`: `https://allpa-server-production.up.railway.app/${product.images[1].path}`
-          hoverImage.src = hoverImageUrl;
-          hoverImage.alt = product.name;
-          hoverImage.classList.add("d-block", "w-100");
-        }
-
-        cardImage.appendChild(hoverImage);
-        hoverImage.classList.add("hidden");
-
-        cardImage.addEventListener("mouseover", () => {
-          hoverImage.classList.remove("hidden");
-          mainImage.classList.add("hidden");
-
-        });
-
-        cardImage.addEventListener("mouseout", () => {
-          hoverImage.classList.add("hidden");
-          mainImage.classList.remove("hidden");
-
-        });
+  cardImage.addEventListener("mouseout", () => {
+    hoverImage.classList.add("hidden");
+    mainImage.classList.remove("hidden");
+  });
+}
 
 
         const cardInfo = document.createElement("div");

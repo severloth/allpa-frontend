@@ -369,7 +369,7 @@ function updateimg(imgId, index) {
              hideLoadingIndicator();
 
              alert('Imagen creada correctamente');
-             window.location.href = './products.html';
+             location.reload();
          })
          .catch(error => {
              console.error(error);
