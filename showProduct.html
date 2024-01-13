@@ -37,9 +37,7 @@
 </div>
 <div id="volver">
     <a href="./products.html"><img src="images/flecha-curva.png" alt=""></a>
-</div>
-    <h1>Detalles del Producto</h1>
- 
+</div> 
     <div id="product-details">
         <!-- Aquí se mostrarán los detalles del producto -->
     </div>
@@ -76,15 +74,15 @@
         </div>
         <div id="details">
             <h2>${product.name}</h2>
-            <p>${product.description}</p>
-            <p>Categoría: ${product.category}</p>
-            <p>Teñido: ${product.color}</p>
-            <p>MULTIPLES MEDIDAS</p>
-            <p>Precio desde: ${product.price}</p>
+            <p id="price">Desde $${product.price}</p>
+            <p id="description">${product.description}</p>
+            <p><b>CATEGORÍA:</b> ${product.category}</p>
+            <p><b>TEÑIDO:</b> ${product.color}</p>
+            <p id="sizes">multiples medidas</p>
             <button type="button" class="btn btn-success" onclick="redirigirAWhatsapp('${product.name}')">Realizar consulta</button>
             </div>
           
-        `;
+        `
 
 // Inicializar el carrusel después de agregar todos los elementos
 $("#product-carousel").carousel();

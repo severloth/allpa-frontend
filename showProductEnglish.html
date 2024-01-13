@@ -28,7 +28,7 @@
         <div id="nav" data-aos="fade-in" data-aos-duration="1500">
             <ul>
                 <li><a href="./index.html">Inicio</a></li>
-                <li><a href="./productsEnglish.html" class="bandera-link"><img src="images/estados-unidos.png" alt=""></a></li>
+                <li><a href="./products.html" class="bandera-link"><img src="images/argentina.png" alt=""></a></li>
             </ul>
         </div>
 </header>
@@ -38,8 +38,6 @@
 <div id="volver">
     <a href="./products.html"><img src="images/flecha-curva.png" alt=""></a>
 </div>
-
-    <h1>Product details</h1>
  
     <div id="product-details">
         <!-- Aquí se mostrarán los detalles del producto -->
@@ -76,11 +74,11 @@
         </div>
         <div id="details">
             <h2>${product.nameEnglish}</h2>
-            <p>${product.descriptionEnglish}</p>
-            <p>Category: ${product.categoryEnglish}</p>
-            <p>Color: ${product.colorEnglish}</p>
-            <p>MULTIPLE SIZES</p>
-            <p>Price from: ${product.price}</p>
+            <p id="price">From: $${product.price}</p>
+            <p id="description">${product.descriptionEnglish}</p>
+            <p><b>CATEGORY:</b> ${product.categoryEnglish}</p>
+            <p><b>COLOR:</b> ${product.colorEnglish}</p>
+            <p id="sizes">multiple sizes</p>
             <button type="button" class="btn btn-success" onclick="redirigirAWhatsappEn('${product.nameEnglish}')">Communicate with us</button>
             </div>
           

@@ -45,10 +45,10 @@
 
 <div id="categoryButtons">
   <button onclick="filterProductsByCategory('Rugs')">Rugs</button>
-  <button onclick="filterProductsByCategory('Pillow Covers')">Pillow Covers</button>
-  <button onclick="filterProductsByCategory('Poncho')">Poncho</button>
   <button onclick="filterProductsByCategory('Runners')">Runners</button>
+  <button onclick="filterProductsByCategory('Poncho')">Poncho</button>
   <button onclick="filterProductsByCategory('Throw')">Throw</button>
+  <button onclick="filterProductsByCategory('Pillow Covers')">Pillow Covers</button>
   <button onclick="resetProductFilter()" id="showAllButton">Show all products</button>
 </div>
 <div id="categoryDropdown">
@@ -142,10 +142,9 @@
         nombre.textContent = product.nameEnglish;
 
         const precio = document.createElement("p");
-        precio.textContent = `Price from: ${product.price}`;
 
         const categoria = document.createElement("p");
-        categoria.textContent = `Category: ${product.categoryEnglish}`;
+        categoria.textContent = `${product.categoryEnglish}`;
 
         const comprarButton = document.createElement("button");
         comprarButton.classList.add("buy-button");
