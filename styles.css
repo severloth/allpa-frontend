@@ -136,13 +136,13 @@ header #logo h1{
 }
 
 .section-historia #historia #mision{
-  height: 80vh;
+  height: 60vh;
 
 }
 
 .section-diferencia{
   height: 80vh;
-  background-color: #8e2833;
+  background-color: #ffffff;
   display: flex;
   background-attachment: fixed;
 }
@@ -152,7 +152,7 @@ header #logo h1{
   font-weight: 700;
   margin-top: auto;
   margin-bottom: auto;
-  color: white;
+  color: #8e2833;
   text-align: center;
   padding-top: 50px;
   
@@ -277,49 +277,54 @@ header #logo h1{
 /*HISTORIAS DE TALENTO*/
 
 .section-historias{
-  height: 90vh;
-  background-color: #8e2833;
+  height: 80vh;
+  background-color: #ffffff;
   display: flex;
   background-attachment: fixed;
 }
 
 .section-historias h2{
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-top: 15%;
+  margin-top: 5%;
   margin-bottom: auto;
-  color: white;
+  color: #8e2833;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   
 }
 
 .section-historias #storiesRight{
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 
 .section-historias #historias{
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 400;
-  color: white;
+  color: gray;
   text-align: justify;
-  line-height: 2rem;
+  line-height: 1.5rem;
+
 }
 
 /* stories right, and stories left*/
 
 .section-historias #historias #stories{
-  height: 90vh;
+  height: 80vh;
   display: flex;
   flex-direction: row;
 }
 
 .section-historias #historias #stories #storiesLeft{
-  height: 90vh;
+  height: 80vh;
   margin-left: 0;
-  width: 40%;
+  width: 50%;
   background-image: url('./images/storie.webp');
   background-size: cover;
   background-position: center;
@@ -330,37 +335,44 @@ header #logo h1{
   width: 50%;
   display: flex;
   flex-direction: column;
+  padding-right: 8%;
+
 }
 
 
 
 .section-historias #historias #stories{
-  height: 80vh;
+  height: 100vh;
 }
 
 /*Products */
 
 .section-productos{
-  height: auto;
+  height: 80vh;
   background-color: white;
   display: flex;
   background-attachment: fixed;
 }
 
 .section-productos h2{
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
-  margin-top: 15%;
+  margin-top: 5%;
   margin-bottom: auto;
   color: #8e2833;
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
   
 }
 
 .section-productos #productsRight{
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .section-productos #productsRight a{
@@ -373,11 +385,11 @@ header #logo h1{
 }
 
 .section-productos #productos{
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 400;
-  color: grey;
+  color: gray;
   text-align: justify;
-  line-height: 2rem;
+  line-height: 1.5rem;
 }
 
 .section-productos #productos #products{
@@ -398,24 +410,25 @@ header #logo h1{
 .section-productos #productos #products #productsRight{
   height: 80vh;
   width: 50%;
+  padding-left: 8%;
   display: flex;
   flex-direction: column;
 }
 /* Calidad artesanal */
 
 .section-calidad{
-  height: auto;
-  background-color: #8e2833;
+  height: 80vh;
+  background-color: #ffffff;
   display: flex;
   background-attachment: fixed;
 }
 
 .section-calidad h2{
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-top: auto;
   margin-bottom: auto;
-  color: #ffffff;
+  color: #8e2833;
   text-align: center;
   padding-top: 50px;
   margin-bottom: 30px;
@@ -428,11 +441,12 @@ header #logo h1{
 }
 
 .section-calidad #calidad{
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 400;
-  color: rgb(255, 255, 255);
+  color: grey;
   text-align: justify;
-  line-height: 2rem;
+  line-height: 1.5rem;
+ 
 }
 
 .section-calidad #calidad #quality{
@@ -442,16 +456,16 @@ header #logo h1{
   align-items: center;
 }
 
-.section-calidad #calidad #quality video{
+.section-calidad #calidad #quality #video{
   width: 60%;
-  padding-top: 20px;
+  padding-top: 50px;
 }
 
 /*contact form*/
 
 .section-contact{
   height: 100vh;
-  background-color: #8e2833;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -464,13 +478,13 @@ header #logo h1{
   font-weight: 700;
   margin-top: auto;
   margin-bottom: auto;
-  color: white;
+  color: #8e2833;
   text-align: center;
   padding-top: 50px;
 }
 
 .section-contact p{
-  color: white;
+  color: grey;
 }
 
 #contacto{
@@ -488,10 +502,11 @@ header #logo h1{
   justify-content: center;
   width: 50%;
   height: 100%;
+ 
 }
 
 #contacto form label{
-  color: white;
+  color: #8e2833;
   font-size: 1.2rem;
   font-weight: 700;
   margin-top: 20px;
@@ -506,6 +521,9 @@ header #logo h1{
   border: none;
   padding-left: 20px;
   font-size: 1.2rem;
+  background-color: #8e2833;
+  color: white;
+
 }
 
 #contacto form input:hover{
@@ -521,6 +539,7 @@ header #logo h1{
   border: none;
   padding-left: 20px;
   font-size: 1.2rem;
+  background-color: #8e2833 ;
 }
 
 #contacto form textarea:hover{
@@ -536,8 +555,8 @@ header #logo h1{
   margin-top: 20px;
   border-radius: 8px;
   border: none;
-  background-color: white;
-  color: #8e2833;
+  background-color: #8e2833;
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
@@ -703,7 +722,7 @@ header #logo h1{
   
   .section-historias{
     height: 120vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
   }
@@ -713,7 +732,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: 5%;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     margin-bottom: 20px;
     
@@ -832,7 +851,7 @@ header #logo h1{
   
   .section-calidad{
     height: 180vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
   }
@@ -842,7 +861,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: #ffffff;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
     margin-bottom: 30px;
@@ -959,7 +978,7 @@ header #logo h1{
   .section-contact{
     padding-top: 150px;
     height: 180vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -972,7 +991,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
   }
@@ -1239,7 +1258,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
     
@@ -1472,7 +1491,7 @@ header #logo h1{
   .section-calidad{
     margin-top: 190%;
     height: 170vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
     justify-content: center;
@@ -1485,7 +1504,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: 0%;
     margin-bottom: auto;
-    color: #ffffff;
+    color: #8e2833;
     text-align: center;
     margin-bottom: 10px;
 
@@ -1527,7 +1546,7 @@ header #logo h1{
   
   .section-contact{
     height: 100vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1540,7 +1559,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: 0px;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
   }
@@ -1862,7 +1881,7 @@ header #logo h1{
   
   .section-diferencia{
     height: 100vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
   }
@@ -1872,7 +1891,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
     
@@ -1991,7 +2010,7 @@ header #logo h1{
   
   .section-historias{
     height: 100vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
   }
@@ -2001,7 +2020,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: 5%;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     margin-bottom: 30px;
     
@@ -2077,7 +2096,7 @@ header #logo h1{
   
   .section-productos #productsRight a{
     text-align: center;
-    background-color: #8e2833;
+    background-color: #ffffff;
     padding: 10px;
     border-radius: 10px;
     color: white;
@@ -2117,7 +2136,7 @@ header #logo h1{
   
   .section-calidad{
     height: 150vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
   }
@@ -2127,7 +2146,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: #ffffff;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
     margin-bottom: 30px;
@@ -2163,7 +2182,7 @@ header #logo h1{
   
   .section-contact{
     height: 170vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2176,7 +2195,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
   }
@@ -2437,7 +2456,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: auto;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
     
@@ -2583,7 +2602,7 @@ header #logo h1{
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #8e2833;
+    background-color: #ffffff;
     order: 1; 
     
   }
@@ -2683,7 +2702,7 @@ header #logo h1{
   .section-calidad{
     margin-top: 260%;
     height: 200vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     background-attachment: fixed;
     justify-content: center;
@@ -2696,7 +2715,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: 0%;
     margin-bottom: auto;
-    color: #ffffff;
+    color: #8e2833;
     text-align: center;
     margin-bottom: 10px;
 
@@ -2738,7 +2757,7 @@ header #logo h1{
   
   .section-contact{
     height: 150vh;
-    background-color: #8e2833;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2751,7 +2770,7 @@ header #logo h1{
     font-weight: 700;
     margin-top: auto;
     margin-bottom: 0px;
-    color: white;
+    color: #8e2833;
     text-align: center;
     padding-top: 50px;
   }
